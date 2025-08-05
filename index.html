@@ -5,15 +5,499 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>리터랙션 홈페이지</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    @font-face {
+      font-family: 'Reteraction';
+      src: url('./font/Reteraction-Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Pretendard';
+      src: url('./font/Pretendard-Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Pretendard';
+      src: url('./font/Pretendard-SemiBold.otf') format('opentype');
+      font-weight: 600;
+      font-style: normal;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+    }
+    body {
+      min-height: 100vh;
+      min-width: 100vw;
+      box-sizing: border-box;
+      background: url('image/background image.png') center center / cover no-repeat;
+      color: #fff;
+      font-family: 'Pretendard';
+      position: relative;
+    }
+
+    .menu-row {
+      display: flex;
+      justify-content: center;
+      margin-left: 384px;
+      margin-right: 284px;
+      gap: 196px;
+      align-items: flex-start;
+     
+    }
+    .menu-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 130px;
+    }
+    
+    
+    .menu-title {
+      font-family: 'Reteraction';
+      font-size: 16px;
+      letter-spacing: 0px;
+      margin-bottom: 18px;
+      margin-top: 24px;
+    }
+    .menu-list {
+      font-family: 'Pretendard';
+      font-size: 16px;
+      color: #fff;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      line-height: 2.4;
+    }
+    .login-section {
+      align-items: flex-start;
+    }
+    .login-title {
+      font-family: 'Reteraction';
+      font-size: 16px;
+      margin-top: 24px;
+  
+    }
+    .arrow {
+      position: absolute;
+      left: 30px;
+      bottom: 30px;
+      width: 178px;
+      height: 178px;
+      z-index: 2000;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .arrow:hover {
+      transform: rotate(45deg);
+    }
+    .top-title {
+      font-family: 'Reteraction';
+      font-size: 160px;
+      color: #fff;
+      margin-top: 20px;
+      transition: color 0.3s;
+    }
+    .top-title-row {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+    .between-title {
+      font-family: 'Reteraction';
+      font-size: 160px;
+      margin-top: 20px;
+      color: rgba(255,255,255,0.3);
+      opacity: 0;
+      transform: translateY(0px) scale(1);
+      transition:
+        opacity 0.9s cubic-bezier(0.4,0,0.2,1),
+        transform 1.4ms cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+      user-select: none;
+    }
+    .top-title-row:hover .between-title {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .top-title.re {
+      margin-left: 16px;
+      margin-right: 0px;
+    }
+
+    .top-title.r {
+      margin-right: 0px;
+    }
+
+    .top-title.n {
+      margin-right: 0px;
+    }
+
+    .between-title.plus-te {
+      position: relative;
+      top: -14px;
+    }
+
+    .menu-title,
+    .menu-list li,
+    .login-title {
+      color: #fff;
+      transition: color 0.3s, transform 0.3s, opacity 0.3s;
+    }
+
+    .menu-row:hover .menu-title,
+    .menu-row:hover .menu-list li,
+    .menu-row:hover .login-title {
+      color: #323232;
+    }
+
+    .menu-section:hover .menu-title,
+    .menu-section:hover .menu-list li,
+    .menu-section.login-section:hover .login-title {
+      color: #fff;
+    }
+
+    .menu-section:hover .menu-list li:not(:hover) {
+      color: #323232;
+    }
+    .menu-section:hover .menu-list li:hover {
+      color: #fff;
+    }
+
+    .menu-section.login-section:hover .login-title {
+      color: #fff;
+    }
+
+    .menu-list a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .menu-list a:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+    .blur-box {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 650px;
+      z-index: 1000;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(100px);
+      -webkit-backdrop-filter: blur(100px);
+      border-top: 1px solid #323232;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    .blur-box.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .blur-col-left {
+      display: flex;
+      flex-direction: column;
+      margin-left: 195px;
+      margin-top: 80px;
+      width: 455px;
+      min-width: 320px;
+    }
+
+    .blur-col-right {
+      display: flex;
+      flex-direction: column;
+      margin-left: 338px;
+      margin-top: 80px;
+      width: 400px;
+      min-width: 320px;
+    }
+    .blur-col-right2 {
+      display: flex;
+      flex-direction: column;
+      margin-left: 120px;
+      margin-top: 80px;
+      width: 400px;
+      min-width: 320px;
+    }
+
+    .blur-text {
+      font-family: 'Pretendard';
+      font-weight: 600;
+      font-size: 16px;
+      color: #00FFCC;
+      margin-bottom: 48px;
+    }
+
+    .blur-desc {
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 16px;
+      color: #fff;
+      line-height: 2;
+      letter-spacing: 0px;
+      word-break: keep-all;
+      white-space: pre-line;
+    }
+
+    .blur-program-title {
+      font-weight: 600;
+      color: #00FFCC;
+      margin-bottom: 18px;
+      font-size: 16px;
+    }
+    .blur-col-right .blur-program-desc {
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 16px;
+      color: #fff;
+      line-height: 2;
+      letter-spacing: 0px;
+      word-break: keep-all;
+      white-space: pre-line;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .blur-col-right2 .blur-program-title {
+      margin-bottom: 18px;
+    }
+    .blur-col-right2 .blur-program-desc {
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 16px;
+      color: #fff;
+      line-height: 2;
+      letter-spacing: 0px;
+      word-break: keep-all;
+      white-space: pre-line;
+    }
+    .program-block {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: -8px;
+      padding: 0;
+      
+    }
+    .program-block .program-title {
+      font-family: 'Pretendard';
+      font-weight: 600;
+      color: #00FFCC;
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 2;
+      display: block;
+    }
+    .program-block .program-desc-text {
+      margin: 0;
+      line-height: 2;
+      display: block;
+    }
+    .enroll-box {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 650px;
+      z-index: 1001;
+      background: #121212;
+      border-top: 1px solid #323232;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+    .enroll-box.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .enroll-name-input {
+      position: absolute;
+      top: 205px;
+      left: 830px;
+      margin-top: 25px;
+      margin-left: 11px;
+      width: 294px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid #323232;
+      color: #fff;
+      font-family: 'Pretendard';
+      font-size: 16px;
+      padding: 8px 12px;
+      outline: none;
+    }
+    .enroll-name-input::placeholder {
+      color: #666;
+    }
+    .enroll-box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 670px;
+      width: 1px;
+      height: 650px;
+      background: #323232;
+    }
+    .enroll-name-label {
+      position: absolute;
+      top: 205px;
+      left: 830px;
+      margin-left: 11px;
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 16px;
+      color: #fff;
+    }
+    .enroll-affiliation-label {
+      position: absolute;
+      top: 315px;
+      left: 830px;
+      margin-left: 11px;
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 16px;
+      color: #fff;
+    }
+    .enroll-affiliation-input {
+      position: absolute;
+      top: 315px;
+      left: 830px;
+      margin-top: 25px;
+      margin-left: 11px;
+      width: 294px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid #323232;
+      color: #fff;
+      font-family: 'Pretendard';
+      font-size: 16px;
+      padding: 8px 12px;
+      outline: none;
+    }
+    .enroll-affiliation-input::placeholder {
+      color: #666;
+    }
+    .enroll-email-label {
+      position: absolute;
+      top: 205px;
+      left: 830px;
+      margin-left: 500px;
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 16px;
+      color: #fff;
+    }
+    .enroll-email-input {
+      position: absolute;
+      top: 205px;
+      left: 830px;
+      margin-top: 25px;
+      margin-left: 500px;
+      width: 294px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid #323232;
+      color: #fff;
+      font-family: 'Pretendard';
+      font-size: 16px;
+      padding: 8px 12px;
+      outline: none;
+    }
+    .enroll-email-input::placeholder {
+      color: #666;
+    }
+    .enroll-phone-label {
+      position: absolute;
+      top: 315px;
+      left: 830px;
+      margin-left: 500px;
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 16px;
+      color: #fff;
+    }
+    .enroll-phone-input {
+      position: absolute;
+      top: 315px;
+      left: 830px;
+      margin-top: 25px;
+      margin-left: 500px;
+      width: 294px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid #323232;
+      color: #fff;
+      font-family: 'Pretendard';
+      font-size: 16px;
+      padding: 8px 12px;
+      outline: none;
+    }
+    .enroll-phone-input::placeholder {
+      color: #666;
+    }
+  </style>
 </head>
 <body>
   <div class="border-box"></div>
- 
+  <div class="blur-box" id="blurBox">
+    <div class="blur-col-left">
+      <div class="blur-text">디자인, 교육, 리서치 그리고 실무의 연결점을 설계하다</div>
+      <div class="blur-desc">RE:TERACTION 091은 대구·경북을 중심으로 한 지역 기반의 AI 디자인 컨설팅 스튜디오이자, UX 및 서비스디자인 전문 교육연구소입니다.
+
+우리는 지역의 잠재된 디자인 인재들이 글로벌 스탠다드에 맞는 실무 경험과 리서치 기반 교육을 통해 성장할 수 있도록, 독립적이고 실험적인 노마드 랩(Nomad Lab)을 운영하고 있습니다.</div>
+    </div>
+    <div class="blur-col-right">
+      <div class="blur-program-title">DESIGN EDUCATION PROGRAM</div>
+      <div class="blur-program-desc">
+        우리는 실무 중심의 디자인 트레이닝과
+        디자인 리서치 기반 학술 경험을 바탕으로 3가지 교육 프로그램을 운영합니다.
+        <div class="program-block">
+          <div class="program-title">Scolastic</div>
+          <div class="program-desc-text">UXUI 기초부터 포트폴리오 완성까지 실무 프로젝트 교육</div>
+        </div>
+        <div class="program-block">
+          <div class="program-title academia">Academia</div>
+          <div class="program-desc-text">대학원 진학 및 논문 발표를 위한 리서치 트레이닝</div>
+        </div>
+        <div class="program-block">
+          <div class="program-title">Industry</div>
+          <div class="program-desc-text">취업 대비 실전 UX·UI·서비스디자인 프로젝트</div>
+        </div>
+      </div>
+    </div>
+    <div class="blur-col-right2">
+      <div class="blur-program-title">DESIGN CONSULTING & PROJECT</div>
+      <div class="blur-program-desc">
+        전문성과 전략을 갖춘 BX & 웹 기반 디자인 솔루션을 제공합니다.
+
+        RE:TERACTION은 단순한 그래픽 작업을 넘어 브랜드 경험 전반(BX)을 설계합니다. 브랜드의 정체성을 정의하고, 사용자 중심으로 확장하는 전략적 디자인을 지향합니다.
+
+        AI 기술과 디자인 전략을 융합하여, 사용자와 서비스 간의 지속가능한 상호작용(Re:teraction)을 설계하는 것이 핵심입니다.
+      </div>
+    </div>
+  </div>
+  <div class="enroll-box" id="enrollBox">
+    <label class="enroll-name-label">이름</label>
+    <input type="text" class="enroll-name-input" placeholder="이름을 입력하세요">
+    <label class="enroll-email-label">이메일 주소</label>
+    <input type="email" class="enroll-email-input" placeholder="이메일을 입력하세요">
+    <label class="enroll-phone-label">전화번호</label>
+    <input type="tel" class="enroll-phone-input" placeholder="전화번호를 입력하세요">
+    <label class="enroll-affiliation-label">소속</label>
+    <input type="text" class="enroll-affiliation-input" placeholder="소속을 입력하세요">
+  </div>
   <div class="top-title-row">
-    <div class="top-title re">rE</div>
+    <div class="top-title re">RE</div>
     <span class="between-title plus-te">+TE</span>
-    <div class="top-title s">r</div>
+    <div class="top-title s">R</div>
     <span class="between-title sctio">ACTIO</span>
     <div class="top-title n">N</div>
   </div>
@@ -64,59 +548,6 @@
       </div>
     </div>
   </div>
-  <div class="blur-box" id="blurBox">
-    <div class="blur-col-left">
-      <div class="blur-text">디자인, 교육, 리서치 그리고 실무의 연결점을 설계하다</div>
-      <div class="blur-desc">RE:TERACTION 091은 대구·경북을 중심으로 한 지역 기반의 AI 디자인 컨설팅 스튜디오이자, UX 및 서비스디자인 전문 교육연구소입니다.
-
-우리는 지역의 잠재된 디자인 인재들이 글로벌 스탠다드에 맞는 실무 경험과 리서치 기반 교육을 통해 성장할 수 있도록, 독립적이고 실험적인 노마드 랩(Nomad Lab)을 운영하고 있습니다.</div>
-    </div>
-    <div class="blur-col-right">
-      <div class="blur-program-title">DESIGN EDUCATION PROGRAM</div>
-      <div class="blur-program-desc">
-        우리는 실무 중심의 디자인 트레이닝과
-        디자인 리서치 기반 학술 경험을 바탕으로 3가지 교육 프로그램을 운영합니다.
-        <div class="program-block">
-          <div class="program-title">Scolastic</div>
-          <div class="program-desc-text">UXUI 기초부터 포트폴리오 완성까지 실무 프로젝트 교육</div>
-        </div>
-        <div class="program-block">
-          <div class="program-title academia">Academia</div>
-          <div class="program-desc-text">대학원 진학 및 논문 발표를 위한 리서치 트레이닝</div>
-        </div>
-        <div class="program-block">
-          <div class="program-title">Industry</div>
-          <div class="program-desc-text">취업 대비 실전 UX·UI·서비스디자인 프로젝트</div>
-        </div>
-      </div>
-    </div>
-    <div class="blur-col-right2">
-      <div class="blur-program-title">DESIGN CONSULTING & PROJECT</div>
-      <div class="blur-program-desc">
-        전문성과 전략을 갖춘 BX & 웹 기반 디자인 솔루션을 제공합니다.
-
-        RE:TERACTION은 단순한 그래픽 작업을 넘어 브랜드 경험 전반(BX)을 설계합니다. 브랜드의 정체성을 정의하고, 사용자 중심으로 확장하는 전략적 디자인을 지향합니다.
-
-        AI 기술과 디자인 전략을 융합하여, 사용자와 서비스 간의 지속가능한 상호작용(Re:teraction)을 설계하는 것이 핵심입니다.
-      </div>
-    </div>
-  </div>
-      <div class="enroll-box" id="enrollBox">
-      <div class="enroll-title" id="enrollTitle1">RE:teraction<br>SCOLASITIC PROGRAM</div>
-      <div class="enroll-desc" id="enrollDesc1">각 디자인 직무 전문 멘토 DEEP-DIVE 컨설팅
-대구/경북 디자인 취준러를 위한 심층 UX 실무 강의</div>
-      <div class="enroll-title2" id="enrollTitle2">RE:teraction<br>iNDUSTRY PROGRAM</div>
-      <div class="enroll-desc2" id="enrollDesc2">각 디자인 직무 전문 멘토 DEEP-DIVE 컨설팅
-대구/경북 디자인 취준러를 위한 심층 UX 실무 강의</div>
-      <label class="enroll-name-label">이름</label>
-    <input type="text" class="enroll-name-input" placeholder="이름을 입력하세요">
-    <label class="enroll-email-label">이메일 주소</label>
-    <input type="email" class="enroll-email-input" placeholder="이메일을 입력하세요">
-    <label class="enroll-phone-label">전화번호</label>
-    <input type="tel" class="enroll-phone-input" placeholder="전화번호를 입력하세요">
-    <label class="enroll-affiliation-label">소속</label>
-    <input type="text" class="enroll-affiliation-input" placeholder="소속을 입력하세요">
-  </div>
   <img class="arrow" src="image/arrow.png" alt="arrow" id="arrowBtn" />
   <script>
     const arrowBtn = document.getElementById('arrowBtn');
@@ -124,13 +555,7 @@
     const aboutBlurBtn = document.getElementById('aboutBlurBtn');
     const enrollBtn = document.getElementById('enrollBtn');
     const enrollBox = document.getElementById('enrollBox');
-    
-    // enroll 텍스트 요소들
-    const enrollTitle1 = document.getElementById('enrollTitle1');
-    const enrollDesc1 = document.getElementById('enrollDesc1');
-    const enrollTitle2 = document.getElementById('enrollTitle2');
-    const enrollDesc2 = document.getElementById('enrollDesc2');
-    
+
     // blur-box 관련 함수 (토글)
     function toggleBlurBox() {
       if (blurBox.classList.contains('active')) {
@@ -142,7 +567,7 @@
         enrollBox.classList.remove('active');
       }
     }
-    
+
     // enroll-box 관련 함수 (토글)
     function toggleEnrollBox() {
       if (enrollBox.classList.contains('active')) {
@@ -154,46 +579,10 @@
         blurBox.classList.remove('active');
       }
     }
-    
-    // enroll 프로그램 1 클릭 이벤트
-    function toggleProgram1() {
-      // 프로그램 1이 이미 활성화되어 있으면 비활성화
-      if (enrollTitle1.classList.contains('active')) {
-        enrollTitle1.classList.remove('active');
-        enrollDesc1.classList.remove('active');
-      } else {
-        // 프로그램 1을 활성화하고 프로그램 2는 비활성화
-        enrollTitle1.classList.add('active');
-        enrollDesc1.classList.add('active');
-        enrollTitle2.classList.remove('active');
-        enrollDesc2.classList.remove('active');
-      }
-    }
-    
-    // enroll 프로그램 2 클릭 이벤트
-    function toggleProgram2() {
-      // 프로그램 2가 이미 활성화되어 있으면 비활성화
-      if (enrollTitle2.classList.contains('active')) {
-        enrollTitle2.classList.remove('active');
-        enrollDesc2.classList.remove('active');
-      } else {
-        // 프로그램 2를 활성화하고 프로그램 1은 비활성화
-        enrollTitle2.classList.add('active');
-        enrollDesc2.classList.add('active');
-        enrollTitle1.classList.remove('active');
-        enrollDesc1.classList.remove('active');
-      }
-    }
-    
+
     arrowBtn.addEventListener('click', toggleBlurBox);
     aboutBlurBtn.addEventListener('click', toggleBlurBox);
     enrollBtn.addEventListener('click', toggleEnrollBox);
-    
-    // enroll 프로그램 클릭 이벤트 리스너 추가
-    enrollTitle1.addEventListener('click', toggleProgram1);
-    enrollDesc1.addEventListener('click', toggleProgram1);
-    enrollTitle2.addEventListener('click', toggleProgram2);
-    enrollDesc2.addEventListener('click', toggleProgram2);
   </script>
 </body>
 </html>
